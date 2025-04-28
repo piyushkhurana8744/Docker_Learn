@@ -11,11 +11,11 @@ services:
       - .:/app
     environment:
       - NODE_ENV=development
-      - REDIS_PASSWORD=redispassword
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_SECRET=redissecret
-      - MongoUrl=mongodb://piyush:piyushmongodb@mongo:27017/?authSource=admin
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_SECRET=${REDIS_SECRET}
+      - MongoUrl=${MongoUrl}
     command: npm run start
     depends_on:
       - mongo
@@ -28,9 +28,9 @@ services:
     env_file:
       - .env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=piyush
-      - MONGO_INITDB_ROOT_PASSWORD=piyushmongodb
-      - MONGO_INITDB_DATABASE=app
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     volumes:
       - mongo-db:/data/db
 
@@ -39,10 +39,10 @@ services:
     ports:
       - "6379:6379"
     environment:
-      - REDIS_PASSWORD=redispassword
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_SECRET=redissecret
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_SECRET=${REDIS_SECRET}
 
 volumes:
   mongo-db:
