@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   nginx:
@@ -12,6 +11,7 @@ services:
 
   node-app:
     build: .
+    image : piyushkhurana/node-app  # Use the latest image from Docker Hub
     volumes:
       - .:/app  # Mount the app code into the container
       - /app/node_modules  # Create node_modules inside the container to avoid dependency issues

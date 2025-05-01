@@ -66,6 +66,10 @@ const redisStore = new RedisStore({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/test", (req, res) => {
+    res.send("Hello World");
+});
+
 // Debugging middleware
 app.use((req, res, next) => {
     console.log("Session data:", req.session);
@@ -90,9 +94,7 @@ mongoose.connect(process.env.MongoUrl, {
     console.error('Error connecting to MongoDB:', err);
 });
 
-app.get("/", (req, res) => {
-    res.send("Hello World!!!");
-});
+
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
