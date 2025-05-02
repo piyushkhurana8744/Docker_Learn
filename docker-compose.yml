@@ -1,20 +1,23 @@
-
 services:
   nginx:
     image: nginx:latest
+    platform: linux/amd64
     ports:
-      - "3000:80"  # Expose the container's port 80 to the host's port 3000
+      - "3000:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Mount NGINX configuration
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - node-app  # Ensure nginx waits for node-app to be ready
+      - node-app
 
   node-app:
-    build: .
-    image : piyushkhurana/node-app  # Use the latest image from Docker Hub
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platform: linux/amd64
+    image: piyushkhurana/node-app
     volumes:
-      - .:/app  # Mount the app code into the container
-      - /app/node_modules  # Create node_modules inside the container to avoid dependency issues
+      - .:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=${NODE_ENV}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -22,28 +25,30 @@ services:
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_SECRET=${REDIS_SECRET}
       - MongoUrl=${MongoUrl}
-    command: npm run start  # Start the application using the "start" script
+    command: npm run start
     depends_on:
-      - mongo  # Wait for MongoDB service to be available
-      - redis  # Wait for Redis service to be available
+      - mongo
+      - redis
 
   mongo:
     image: mongo:latest
+    platform: linux/amd64
     ports:
-      - "27017:27017"  # Expose MongoDB default port
+      - "27017:27017"
     env_file:
-      - .env  # Load environment variables from the .env file
+      - .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     volumes:
-      - mongo-db:/data/db  # Persist MongoDB data in a Docker volume
+      - mongo-db:/data/db
 
   redis:
     image: redis:latest
+    platform: linux/amd64
     ports:
-      - "6379:6379"  # Expose Redis default port
+      - "6379:6379"
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_HOST=${REDIS_HOST}
@@ -51,4 +56,4 @@ services:
       - REDIS_SECRET=${REDIS_SECRET}
 
 volumes:
-  mongo-db:  # Define volume to persist MongoDB data
+  mongo-db:
