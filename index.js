@@ -6,9 +6,7 @@ const cors = require('cors');
 const {RedisStore} = require('connect-redis');
 const {createClient} = require("redis")
 
-console.log("Redis host:", process.env.REDIS_HOST)
-console.log("Redis port:", process.env.REDIS_PORT)
-console.log("Redis secret:", process.env.REDIS_SECRET);
+
 
 let redisClient = createClient({
     legacyMode: true, // This is necessary for connect-redis v6+

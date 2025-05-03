@@ -9,6 +9,13 @@ services:
       - node-app  # Ensure nginx waits for node-app to be ready
 
   node-app:
+  deploy:
+    replicas: 2  # Number of replicas for the node-app service
+    restart_policy:
+      condition: any  # Restart the container if it fails
+      update_config:
+        parallelism: 2  # Number of containers to update in parallel
+        delay: 15s  # Delay between updates
     platform: linux/amd64
     build: .
     image: piyushkhurana/node-app:latest  # Use the latest image from Docker Hub
