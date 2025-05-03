@@ -11,7 +11,7 @@ services:
   node-app:
     platform: linux/amd64
     build: .
-    image: piyushkhurana/node-app  # Use the latest image from Docker Hub
+    image: piyushkhurana/node-app:latest  # Use the latest image from Docker Hub
     volumes:
       - .:/app  # Mount the app code into the container
       - /app/node_modules  # Create node_modules inside the container to avoid dependency issues

@@ -86,7 +86,7 @@ const allRoutes = require("./routes/index");
 app.use("/api", allRoutes);
 
 app.get("/api/test", (req, res) => {
-    res.send("Hello World!!!!!!!");
+    res.send("Hello Worldjflkdsfkls");
 });
 
 mongoose.connect(process.env.MongoUrl, {
