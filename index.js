@@ -66,9 +66,6 @@ const redisStore = new RedisStore({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/test", (req, res) => {
-    res.send("Hello World");
-});
 
 // Debugging middleware
 app.use((req, res, next) => {
@@ -82,8 +79,15 @@ app.get("/test-session", (req, res) => {
 });
 
 
+
+
+
 const allRoutes = require("./routes/index");
 app.use("/api", allRoutes);
+
+app.get("/api/test", (req, res) => {
+    res.send("Hello World!!!!!!!");
+});
 
 mongoose.connect(process.env.MongoUrl, {
     useNewUrlParser: true,

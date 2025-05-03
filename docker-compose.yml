@@ -1,4 +1,3 @@
-
 services:
   nginx:
     image: nginx:latest
@@ -10,8 +9,9 @@ services:
       - node-app  # Ensure nginx waits for node-app to be ready
 
   node-app:
+    platform: linux/amd64
     build: .
-    image : piyushkhurana/node-app  # Use the latest image from Docker Hub
+    image: piyushkhurana/node-app  # Use the latest image from Docker Hub
     volumes:
       - .:/app  # Mount the app code into the container
       - /app/node_modules  # Create node_modules inside the container to avoid dependency issues
@@ -44,11 +44,9 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"  # Expose Redis default port
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]  # Set Redis password
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
-      - REDIS_SECRET=${REDIS_SECRET}
 
 volumes:
   mongo-db:  # Define volume to persist MongoDB data
